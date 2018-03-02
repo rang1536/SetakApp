@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="category">
+        <item>남성복</item>
+        <item>여성복</item>
+        <item>특수세탁</item>
+        <item>이불/기타</item>
+    </string-array>
+</resources>
