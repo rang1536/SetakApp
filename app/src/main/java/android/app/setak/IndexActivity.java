@@ -7,11 +7,12 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class IndexActivity extends AppCompatActivity {
 
     /*ImageButton mainmenu1, mainmenu2;*/
-    Button mainmenu1, mainmenu2;
+    ImageButton mainmenu1, mainmenu2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,8 +22,8 @@ public class IndexActivity extends AppCompatActivity {
 
         /*mainmenu1 = (ImageButton) findViewById(R.id.mainmenu1);
         mainmenu2 = (ImageButton) findViewById(R.id.mainmenu2); */
-        mainmenu1 = (Button) findViewById(R.id.mainmenu1);
-        mainmenu2 = (Button) findViewById(R.id.mainmenu2);
+        mainmenu1 = (ImageButton) findViewById(R.id.mainmenu1);
+        mainmenu2 = (ImageButton) findViewById(R.id.mainmenu2);
 
         //세탁확인
         mainmenu1.setOnClickListener(new View.OnClickListener() {

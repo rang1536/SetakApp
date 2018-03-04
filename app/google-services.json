@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "216400666964",
+    "firebase_url": "https://setakapp.firebaseio.com",
+    "project_id": "setakapp",
+    "storage_bucket": "setakapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:216400666964:android:f9e035a0c0ddcaab",
+        "android_client_info": {
+          "package_name": "android.app.setak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "216400666964-o8vq54ohgbni4q4br5vkakj97ml8bn1p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYStLGpkPhPVlra40VvHyWyJKiZy8QeO8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

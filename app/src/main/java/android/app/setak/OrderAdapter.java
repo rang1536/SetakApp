@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -83,8 +84,8 @@ public class OrderAdapter extends ArrayAdapter implements View.OnClickListener {
         viewHolder.price = (TextView) convertView.findViewById(price) ;*/
         final TextView name = (TextView) convertView.findViewById(R.id.name) ;
         final TextView price = (TextView) convertView.findViewById(R.id.price) ;
-        final Button orderMinusBtn = (Button) convertView.findViewById(R.id.orderMinusBtn);
-        final Button orderPlusBtn = (Button) convertView.findViewById(R.id.orderPlusBtn);
+        final ImageButton orderMinusBtn = (ImageButton) convertView.findViewById(R.id.orderMinusBtn);
+        final ImageButton orderPlusBtn = (ImageButton) convertView.findViewById(R.id.orderPlusBtn);
         final TextView orderCountText = (TextView) convertView.findViewById(R.id.orderCountText);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
@@ -96,7 +97,6 @@ public class OrderAdapter extends ArrayAdapter implements View.OnClickListener {
         name.setText(listViewItem.getName());
         price.setText(listViewItem.getPrice());
 
-        final TextView totalPrice = (TextView) convertView.findViewById(R.id.orderTotalPrice);
         orderPlusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,7 +150,8 @@ public class OrderAdapter extends ArrayAdapter implements View.OnClickListener {
     class ViewHolder{
         TextView name;
         TextView price;
-        Button orderMinusBtn, orderPlusBtn, orderBtn;
+        ImageButton orderMinusBtn, orderPlusBtn;
+        Button orderBtn;
         TextView orderCountText;
     }
 }
