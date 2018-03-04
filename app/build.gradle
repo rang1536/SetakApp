@@ -35,11 +35,12 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:25.3.1'
-    testCompile 'junit:junit:4.12'
-
-
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
     // 카카오 로그인 sdk를 사용하기 위해 필요.
     compile group: 'com.kakao.sdk', name: 'usermgmt', version: project.KAKAO_SDK_VERSION
     compile 'com.google.firebase:firebase-messaging:11.8.0'
+
+    testCompile 'junit:junit:4.12'
+
 }
 apply plugin: 'com.google.gms.google-services'
