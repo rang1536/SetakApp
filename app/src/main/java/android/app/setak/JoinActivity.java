@@ -13,10 +13,14 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +31,8 @@ public class JoinActivity extends AppCompatActivity {
     EditText joinPhoneInput, joinNameInput, joinPwInput, joinPwCheckInput, joinBirthInput, joinFigureInput;
     RadioGroup genderRadio;
     Button joinSubmitBtn;
+    CheckBox autoLoginCheck;
+    String autoLoginValue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +42,22 @@ public class JoinActivity extends AppCompatActivity {
         actionBar.hide();
         joinPhoneInput = (EditText) findViewById(R.id.joinPhoneInput);
         joinNameInput = (EditText) findViewById(R.id.joinNameInput);
-        joinPwInput = (EditText) findViewById(R.id.joinPwInput);
-        joinPwCheckInput = (EditText) findViewById(R.id.joinPwCheckInput);
+        /*joinPwInput = (EditText) findViewById(R.id.joinPwInput);
+        joinPwCheckInput = (EditText) findViewById(R.id.joinPwCheckInput);*/
         genderRadio = (RadioGroup) findViewById(R.id.genderRadio);
         joinSubmitBtn = (Button) findViewById(R.id.joinSubmitBtn);
+        autoLoginCheck = (CheckBox) findViewById(R.id.autoLoginCheck);
 
+        autoLoginCheck.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked == false){
+                    Toast.makeText(JoinActivity.this, "자동로그인 기능이 헤제되었습니다", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(JoinActivity.this, "자동로그인 기능이 선택되었습니다", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         joinSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,8 +65,8 @@ public class JoinActivity extends AppCompatActivity {
                 RadioButton rb = (RadioButton) findViewById(checkRadio);
                 String phone = joinPhoneInput.getText().toString();
                 String name = joinNameInput.getText().toString();
-                String pw = joinPwInput.getText().toString();
-                String pwCheck = joinPwCheckInput.getText().toString();
+                /*String pw = joinPwInput.getText().toString();
+                String pwCheck = joinPwCheckInput.getText().toString();*/
                 /*String birth = joinBirthInput.getText().toString();*/
                 /*int figure = Integer.parseInt(joinFigureInput.getText().toString());*/
                 String genderCheck = rb.getText().toString();
@@ -59,35 +76,33 @@ public class JoinActivity extends AppCompatActivity {
                 } else if (genderCheck.equals("여")) {
                     gender = "F";
                 }
+                if(autoLoginCheck.isChecked()){
+                    autoLoginValue = "checked";
+                }else{
+                    autoLoginValue = "notCheck";
+                }
                 if (phone.equals("") || phone == null) {
                     Toast.makeText(JoinActivity.this, "핸드폰번호를 입력하세요.", Toast.LENGTH_SHORT).show();
                 } else if (phone.replaceAll("-", "").length() != 11) {
                     Toast.makeText(JoinActivity.this, "핸드폰번호가 잘못되었습니다.", Toast.LENGTH_SHORT).show();
                 } else if (name.equals("") || name == null) {
                     Toast.makeText(JoinActivity.this, "이름을 입력하세요.", Toast.LENGTH_SHORT).show();
-                } else if (pw.equals("") || pw == null) {
-                    Toast.makeText(JoinActivity.this, "비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show();
-                } else if (pwCheck.equals("") || pwCheck == null) {
-                    Toast.makeText(JoinActivity.this, "비밀번호 확인을 입력하세요.", Toast.LENGTH_SHORT).show();
-                } else if (!pw.equals(pwCheck)) {
-                    Toast.makeText(JoinActivity.this, "입력하신 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
                 } else {
                     phone = phone.replaceAll("-", "");
                     // URL 설정.
+                    String token = FirebaseInstanceId.getInstance().getToken();
                     ContentValues values = new ContentValues();
-                    values.put("phone", phone);
-                    values.put("name", name);
-                    values.put("pw", pw);
-                    /*values.put("birth", birth);
-                    values.put("figure", figure);*/
+                    values.put("userHp", phone);
+                    values.put("userId", name);
                     values.put("gender", gender);
-                    joinUs(values);
+                    values.put("token",token);
+                    joinUs(values, autoLoginValue);
                 }
             }
         });
     }
 
-    private void joinUs(ContentValues values) {
+    private void joinUs(ContentValues values, String autoLoginValue) {
         try {
             String s = new NetworkTask("join.app", values).execute().get();
             JSONObject obj = new JSONObject(s);
@@ -99,9 +114,10 @@ public class JoinActivity extends AppCompatActivity {
                 Toast.makeText(JoinActivity.this, "오류가 발생하였습니다.", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(JoinActivity.this, "회원가입성공", Toast.LENGTH_SHORT).show();
-                final int loginUserNo = obj.getInt("loginUserNo");
-                final String loginUserName = obj.getString("loginUserName");
-                final String loginUserPhone = obj.getString("loginUserPhone");
+                final int loginUserNo = obj.getInt("userNo");
+                final String loginUserName = obj.getString("userId");
+                final String loginUserPhone = obj.getString("userHp");
+                final String userGrade = obj.getString("userGrade");
                 // 백그라운드 스레드에서 메인UI를 변경할 경우 사용
                 SharedPreferences login = getSharedPreferences("login", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor autoLogin = login.edit();
@@ -109,12 +125,18 @@ public class JoinActivity extends AppCompatActivity {
                 autoLogin.putInt("loginUserNo", loginUserNo);
                 autoLogin.putString("loginUserName", loginUserName);
                 autoLogin.putString("loginUserPhone", loginUserPhone);
+                autoLogin.putString("userGrade",userGrade);
                 autoLogin.commit(); //commit 필수
 
                 //액티비티 전환
                 /*CheckBox autoLoginCheck = (CheckBox) findViewById(R.id.autoLoginCheck);*/
                 Intent intent;
-                intent = new Intent(JoinActivity.this, IndexActivity.class);
+                if(autoLoginValue == "checked"){
+                    intent = new Intent(JoinActivity.this, IndexActivity.class);
+                }else{
+                    intent = new Intent(JoinActivity.this, LoginActivity.class);
+                }
+                startActivity(intent);
             }
 
         } catch (InterruptedException e) {

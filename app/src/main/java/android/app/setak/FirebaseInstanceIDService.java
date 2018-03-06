@@ -1,16 +1,14 @@
 package android.app.setak;
 
+import android.app.Activity;
+import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
-import java.io.IOException;
-
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
+import java.util.concurrent.ExecutionException;
 
 
 public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
@@ -25,6 +23,9 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
     // [START refresh_token]
     @Override
     public void onTokenRefresh() {
+        SharedPreferences login = getSharedPreferences("login", Activity.MODE_PRIVATE);
+        String loginUserId = login.getString("loginUserName", null);
+
         // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.d(TAG, "Refreshed token: " + refreshedToken);
@@ -32,7 +33,10 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
         // Instance ID token to your app server.
-        sendRegistrationToServer(refreshedToken);
+        if(loginUserId == null){
+            loginUserId = "none";
+        }
+        sendRegistrationToServer(refreshedToken, loginUserId);
     }
     // [END refresh_token]
 
@@ -44,33 +48,31 @@ public class FirebaseInstanceIDService extends FirebaseInstanceIdService {
      *
      * @param token The new token.
      */
-    private void sendRegistrationToServer(String token) {
+    private void sendRegistrationToServer(String token, String userId) {
         // TODO: Implement this method to send token to your app server.
         //로컬
-        String url = "http://61.247.71.19:8080/www/tokenAdd.app";
+        /*String url = "http://61.247.71.19:8080/www/tokenAdd.app";*/
 
         //웹서버
         /*String url = "http://seapp.cafe24.com/tokenAdd.app";*/
 
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = new FormBody.Builder()
-                            .add("Token", token)
-                            .build();
-
-
-       //request
-        Request request = new Request.Builder()
-                            .url(url)
-                            .post(body)
-                            .build();
-        try {
-            client.newCall(request).execute();
-        } catch (IOException e) {
+        ContentValues values = new ContentValues();
+        values.put("token",token);
+        values.put("userId",userId);
+        Log.d(TAG, "되냐마냐 " + values);
+        try{
+            String s = new NetworkTask("tokenAdd.app",values).execute().get();
+            Log.d(TAG, "되냐마냐 " + s);
+        }catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
             e.printStackTrace();
         }
 
 
-       }
+
+
+    }
 
 }
 

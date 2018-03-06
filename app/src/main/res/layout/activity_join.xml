@@ -17,7 +17,7 @@
             android:id="@+id/join_menu_title"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#426bb3"
+            android:background="#FFFFFF"
             android:gravity="top">
 
             <TextView
@@ -26,8 +26,8 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20dp"
                 android:text="회원가입"
-                android:textColor="#FFFFFF"
-                android:textSize="20dp"
+                android:textColor="#000000"
+                android:textSize="17dp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -47,18 +47,17 @@
 
                 <!--<ImageView
                     android:id="@+id/join_logo"
-                    android:layout_width="70dp"
-                    android:layout_height="50dp"
+                    android:layout_width="220dp"
+                    android:layout_height="90dp"
                     android:layout_alignParentBottom="true"
-                    android:src="@drawable/logo" />
+                    android:src="@drawable/logo" />-->
 
                 <ImageView
                     android:id="@+id/join_logo_title"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
                     android:layout_alignParentBottom="true"
-                    android:layout_toRightOf="@+id/join_logo"
-                    android:src="@drawable/actionbar_logo" />-->
+                    android:src="@drawable/ac_logo" />
             </RelativeLayout>
 
             <EditText
@@ -79,7 +78,7 @@
                 android:hint="이름"
                 android:privateImeOptions="defaultInputmode=korea" />
 
-            <EditText
+            <!--<EditText
                 android:id="@+id/joinPwInput"
                 android:layout_width="300dp"
                 android:layout_height="50dp"
@@ -95,15 +94,15 @@
                 android:layout_below="@+id/joinPwInput"
                 android:layout_centerHorizontal="true"
                 android:hint="비밀번호 확인"
-                android:inputType="textPassword" />
+                android:inputType="textPassword" />-->
 
 
             <RelativeLayout
                 android:id="@+id/genderLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/joinPwCheckInput"
-                android:layout_below="@+id/joinPwCheckInput"
+                android:layout_alignLeft="@+id/joinNameInput"
+                android:layout_below="@+id/joinNameInput"
                 android:orientation="horizontal">
 
                 <TextView
@@ -138,9 +137,17 @@
                         android:layout_weight="1"
                         android:text="여" />
                 </RadioGroup>
+
+                <!--<CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="회원가입후 자동로그인"
+                    android:id="@+id/joinAutoLogin"
+                    android:layout_alignLeft="@+id/genderTextView"
+                    android:layout_below="@+id/genderTextView"/>-->
             </RelativeLayout>
 
-            <!--<CheckBox
+            <CheckBox
                 android:id="@+id/autoLoginCheck"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -149,14 +156,14 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:checked="true"
-                android:text="회원가입 후 자동로그인" />-->
+                android:text="회원가입 후 자동로그인" />
 
             <Button
                 android:id="@+id/joinSubmitBtn"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/genderLayout"
-                android:layout_below="@+id/genderLayout"
+                android:layout_alignLeft="@+id/autoLoginCheck"
+                android:layout_below="@+id/autoLoginCheck"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:background="#426bb3"

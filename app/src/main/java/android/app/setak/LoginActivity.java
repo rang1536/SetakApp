@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -75,9 +77,17 @@ public class LoginActivity extends AppCompatActivity {
             } else if (result.equals("noPw")) {
                 Toast.makeText(LoginActivity.this, "휴대폰번호가 일치하지않습니다.", Toast.LENGTH_SHORT).show();
             } else if (result.equals("success")) {
+                String token = FirebaseInstanceId.getInstance().getToken();
+                System.out.println("토큰확인 : "+token);
+                values.put("token",token);
+                values.put("userNo",obj.getInt("loginUserNo"));
+
+                String r = new NetworkTask("tokenAdd.app", values).execute().get();
+                System.out.println("토큰 저장 확인 : "+r);
                 final int loginUserNo = obj.getInt("loginUserNo");
                 final String loginUserId = obj.getString("loginUserId");
                 final String loginUserPhone = obj.getString("loginUserHp");
+                final String userGrade = obj.getString("userGrade");
                 // 백그라운드 스레드에서 메인UI를 변경할 경우 사용
                 SharedPreferences login = getSharedPreferences("login", Activity.MODE_PRIVATE);
                 SharedPreferences.Editor autoLogin = login.edit();
@@ -85,10 +95,11 @@ public class LoginActivity extends AppCompatActivity {
                 autoLogin.putInt("loginUserNo", loginUserNo);
                 autoLogin.putString("loginUserId", loginUserId);
                 autoLogin.putString("loginUserPhone", loginUserPhone);
+                autoLogin.putString("userGrade",userGrade);
                 autoLogin.commit(); //commit 필수
 
                 //액티비티 전환
-                Toast.makeText(LoginActivity.this, loginUserId+" 반갑습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, loginUserId+"님 반갑습니다.", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginActivity.this, IndexActivity.class);
                 startActivity(intent);
 
