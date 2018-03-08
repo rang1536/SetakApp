@@ -2,12 +2,21 @@ package android.app.setak;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        //ITmfCN40UczroE7XIrYLWm5uY0g=
+        /*getHashKey();*/
         /*String token = FirebaseInstanceId.getInstance().getToken();
         Log.d("FCM_Token", token);*/
          //화면 터치 이벤트
@@ -42,7 +52,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
+
+    private void getHashKey(){
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo("android.app.setak", PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                System.out.println("key_hash="+ Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

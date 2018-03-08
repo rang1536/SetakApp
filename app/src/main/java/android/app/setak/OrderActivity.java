@@ -1,7 +1,9 @@
 package android.app.setak;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,7 +83,7 @@ public class OrderActivity extends AppCompatActivity implements OrderAdapter.Lis
         getSupportActionBar().getCustomView().findViewById(R.id.actionBackBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                OrderActivity.this.finish();
+                finish();
             }
         });
         getSupportActionBar().getCustomView().findViewById(R.id.actionLogoBtn).setOnClickListener(new View.OnClickListener() {
@@ -109,8 +112,48 @@ public class OrderActivity extends AppCompatActivity implements OrderAdapter.Lis
         Toolbar parent = (Toolbar)actionbar.getParent();
         parent.setContentInsetsAbsolute(0,0);
 
+        //회원정보세팅. 쉐어드프리퍼런스에서 아이디 불러와서 DB에서 조회 혹은 로그인시 아예 저장.
+        TextView nameText = (TextView) findViewById(R.id.slide_loginNameText);
 
+        SharedPreferences login = getSharedPreferences("login", Activity.MODE_PRIVATE);
+        String loginUserId = login.getString("loginUserId", null);
+
+        nameText.setText(loginUserId);
        /* actionBar.hide();*/
+
+        //사이드바 메뉴 인텐트 이동
+        RelativeLayout myPageBtn = (RelativeLayout) findViewById(R.id.slide_myPageButton);
+        RelativeLayout menu1Btn = (RelativeLayout) findViewById(R.id.slide_menu1Button);
+        RelativeLayout menu2Btn = (RelativeLayout) findViewById(R.id.slide_menu2Button);
+        RelativeLayout menu3Btn = (RelativeLayout) findViewById(R.id.slide_menu3Button);
+
+        myPageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                //마이페이지로 이동
+            }
+        });
+
+        menu1Btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                //메뉴1로 이동
+            }
+        });
+
+        menu2Btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                //메뉴2로 이동
+            }
+        });
+
+        menu3Btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                //메뉴3로 이동
+            }
+        });
 
         ArrayList<OrderItem> list_itemArrayList= new ArrayList<OrderItem>();;
         listView = (ListView)findViewById(R.id.orderListView);

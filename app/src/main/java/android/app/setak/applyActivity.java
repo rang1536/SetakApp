@@ -13,12 +13,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,15 +40,82 @@ public class applyActivity extends AppCompatActivity {
     Handler handler;
     EditText apply_add, apply_delivery_add, apply_sangseAdd, apply_name, apply_phone, apply_comment;
     private static final int SEARCH_ADDRESS_ACTIVITY = 10000;
-    LinearLayout ll_delivery;
+    LinearLayout ll_delivery, slidingPage02;
     ArrayList<OrderItem> orderList;
     CheckBox apply_sameAdd_check;
+    //슬라이드 열기/닫기 플래그
+    boolean isPageOpen = false;
+    //슬라이드 열기 애니메이션
+    Animation translateLeftAnim;
+    //슬라이드 닫기 애니메이션
+    Animation translateRightAnim;
+
+    private final long FINISH_INTERVAL_TIME = 2000;
+    private long backPressedTime = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_apply);
 
+        ActionBar actionBar = getSupportActionBar();
+
+        // Custom Actionbar를 사용하기 위해 CustomEnabled을 true 시키고 필요 없는 것은 false 시킨다
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(false);            //액션바 아이콘을 업 네비게이션 형태로 표시합니다.
+        actionBar.setDisplayShowTitleEnabled(false);        //액션바에 표시되는 제목의 표시유무를 설정합니다.
+        actionBar.setDisplayShowHomeEnabled(false);            //홈 아이콘을 숨김처리합니다.
+
+
+        //layout을 가지고 와서 actionbar에 포팅을 시킵니다.
+        LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+        View actionbar = inflater.inflate(R.layout.custom_bar, null);
+
+        actionBar.setCustomView(actionbar);
+
+        //UI
+        slidingPage02 = (LinearLayout)findViewById(R.id.slidingPage02);
+
+        //애니메이션
+        translateLeftAnim = AnimationUtils.loadAnimation(this, R.anim.translate_left);
+        translateRightAnim = AnimationUtils.loadAnimation(this, R.anim.translate_right);
+
+        //애니메이션 리스너 설정
+        applyActivity.SlidingPageAnimationListener animationListener = new applyActivity.SlidingPageAnimationListener();
+        translateLeftAnim.setAnimationListener(animationListener);
+        translateRightAnim.setAnimationListener(animationListener);
+
+        getSupportActionBar().getCustomView().findViewById(R.id.actionBackBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                finish();
+            }
+        });
+        getSupportActionBar().getCustomView().findViewById(R.id.actionLogoBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                //인덱스로?
+            }
+        });
+        getSupportActionBar().getCustomView().findViewById(R.id.actionMenuBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                //닫기
+                if(isPageOpen){
+                    //애니메이션 시작
+                    slidingPage02.startAnimation(translateRightAnim);
+                }
+                //열기
+                else{
+                    slidingPage02.setVisibility(View.VISIBLE);
+                    slidingPage02.startAnimation(translateLeftAnim);
+                }
+            }
+        });
+
+        //액션바 양쪽 공백 없애기
+        Toolbar parent = (Toolbar)actionbar.getParent();
+        parent.setContentInsetsAbsolute(0,0);
         Intent intent = getIntent();
         orderList = (ArrayList<OrderItem>)intent.getSerializableExtra("orderResultList");
 
@@ -79,6 +149,44 @@ public class applyActivity extends AppCompatActivity {
         login = getSharedPreferences("login", Activity.MODE_PRIVATE);
         loginUserId = login.getString("loginUserId", null);
         loginUserPhone = login.getString("loginUserPhone", null);
+
+        //회원정보세팅. 쉐어드프리퍼런스에서 아이디 불러와서 DB에서 조회 혹은 로그인시 아예 저장.
+        TextView nameText = (TextView) findViewById(R.id.slide_loginNameText1);
+        nameText.setText(loginUserId);
+
+        //사이드바 메뉴 인텐트 이동
+        RelativeLayout myPageBtn = (RelativeLayout) findViewById(R.id.slide_myPageButton1);
+        RelativeLayout menu1Btn = (RelativeLayout) findViewById(R.id.slide_menu1Button1);
+        RelativeLayout menu2Btn = (RelativeLayout) findViewById(R.id.slide_menu2Button1);
+        RelativeLayout menu3Btn = (RelativeLayout) findViewById(R.id.slide_menu3Button1);
+
+        myPageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                //마이페이지로 이동
+            }
+        });
+
+        menu1Btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                //메뉴1로 이동
+            }
+        });
+
+        menu2Btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                //메뉴2로 이동
+            }
+        });
+
+        menu3Btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                //메뉴3로 이동
+            }
+        });
 
         System.out.print("이름, 핸드폰번호 확인 : "+loginUserId+", "+loginUserPhone);
         //핸드폰번호 - 추가 하기
@@ -210,4 +318,27 @@ public class applyActivity extends AppCompatActivity {
         }
     }
 
+    //애니메이션 리스너
+    private class SlidingPageAnimationListener implements Animation.AnimationListener {
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            //슬라이드 열기->닫기
+            if(isPageOpen){
+                slidingPage02.setVisibility(View.INVISIBLE);
+                isPageOpen = false;
+            }
+            //슬라이드 닫기->열기
+            else{
+                isPageOpen = true;
+            }
+        }
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+        @Override
+        public void onAnimationStart(Animation animation) {
+
+        }
+    }
 }

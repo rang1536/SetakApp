@@ -95,7 +95,14 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
-            <LinearLayout
+            <com.kakao.usermgmt.LoginButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/loginSubmitBtn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:id="@+id/kakaoLoginBtn"/>
+            <!--<LinearLayout
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/loginSubmitBtn"
@@ -122,7 +129,7 @@
                     android:text="NAVER"
                     android:id="@+id/naver"/>
 
-                <!--<ImageButton
+                <ImageButton
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/kakao"/>
@@ -135,14 +142,14 @@
                 <ImageButton
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/naver"/>-->
-            </LinearLayout>
+                    android:id="@+id/naver"/>
+            </LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/loginWith"
-                android:layout_below="@+id/loginWith"
+                android:layout_alignLeft="@+id/kakaoLoginBtn"
+                android:layout_below="@+id/kakaoLoginBtn"
                 android:layout_marginTop="15dp"
                 android:gravity="center">
 
