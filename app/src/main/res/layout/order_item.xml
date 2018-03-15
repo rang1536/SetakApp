@@ -11,9 +11,11 @@
         android:text="TEXT"
         android:id="@+id/name"
         android:textSize="20dp"
-        android:gravity="center"
+        android:gravity="left"
         android:layout_weight="4"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:textColor="#000000"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,7 +25,8 @@
         android:textSize="20dp"
         android:gravity="center"
         android:layout_weight="2"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:textColor="#000000"/>
 
     <!--<Button
         android:layout_width="20dp"
@@ -64,7 +67,8 @@
         android:layout_weight="0.8"
         android:src="@drawable/p_img"
         android:id="@+id/orderPlusBtn"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="15dp"/>
     <!--<CheckBox
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

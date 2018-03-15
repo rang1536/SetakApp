@@ -21,11 +21,11 @@ public class RequestHttpConnection {
         //_url = "http://192.168.1.149:8080/greenbis/" + _url;
 
         //로컬2
-        _url = "http://192.168.0.201:8080/www/" + _url;
+        /*_url = "http://192.168.0.204:8080/www/" + _url;*/
         /*_url = "http://192.168.0.5:8080/www/" + _url;*/
 
         //호스팅
-       /* _url = "http://www.setak.kr/" + _url;*/
+       _url = "http://seapp.cafe24.com/" + _url;
 
 
         // HttpURLConnection 참조 변수.

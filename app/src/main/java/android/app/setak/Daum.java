@@ -44,7 +44,7 @@ public class Daum extends AppCompatActivity {
         });
 
         //browser.loadUrl("file:///android_asset/searchAdd.html");
-        browser.loadUrl("http://192.168.0.5:8080/www/resources/searchAdd.html");
+        browser.loadUrl("http://seapp.cafe24.com/resources/searchAdd.html");
         //browser.loadUrl("http://cdn.rawgit.com/jolly73-df/DaumPostcodeExample/master/DaumPostcodeExample/app/src/main/assets/daum.html");
 
     }

@@ -1,0 +1,36 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="android.app.setak.MyReservePackageFragment">
+
+    <RelativeLayout
+        android:id="@+id/my_reserve_package_noList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:gravity="center">
+        <ImageView
+            android:id="@+id/my_reserve_package_noImg"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/slide_reserve"/>
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/my_reserve_package_noImg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="15dp"
+            android:textColor="@color/colorPrimary"
+            android:textStyle="bold"
+            android:text="예약하신 상품이 없습니다."/>
+    </RelativeLayout>
+    <ListView
+        android:id="@+id/my_reserve_package_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+</FrameLayout>

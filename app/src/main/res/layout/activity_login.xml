@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dl_slidemenu"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
 
     <RelativeLayout
         android:id="@+id/main"
@@ -42,16 +43,17 @@
                 android:layout_height="50dp"
                 android:layout_centerInParent="true"
                 android:layout_marginBottom="10dp"
-                android:gravity="center">
-
-                <!--<ImageView
-                    android:id="@+id/login_logo"
-                    android:layout_width="70dp"
-                    android:layout_height="50dp"
-                    android:layout_alignParentBottom="true"
-                    android:src="@drawable/logo" />
+                android:gravity="center"
+                >
 
                 <ImageView
+                    android:id="@+id/login_logo"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/ac_logo" />
+
+                <!--<ImageView
                     android:id="@+id/login_logo_title"
                     android:layout_width="150dp"
                     android:layout_height="50dp"
@@ -84,73 +86,126 @@
             <Button
                 android:id="@+id/loginSubmitBtn"
                 android:layout_width="300dp"
-                android:layout_height="55dp"
+                android:layout_height="50dp"
                 android:layout_alignLeft="@+id/loginPwInput"
                 android:layout_alignStart="@+id/loginPwInput"
                 android:layout_below="@+id/loginPwInput"
                 android:layout_marginTop="21dp"
-                android:background="#426bb3"
+                android:background="#22741C"
                 android:text="로그인"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
-            <com.kakao.usermgmt.LoginButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/loginSubmitBtn"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
-                android:id="@+id/kakaoLoginBtn"/>
-            <!--<LinearLayout
+            <FrameLayout
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/loginSubmitBtn"
                 android:layout_below="@+id/loginSubmitBtn"
                 android:layout_marginTop="15dp"
                 android:gravity="center"
-                android:id="@+id/loginWith">
+                android:id="@+id/btnGroup">
 
-                <Button
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:text="KAKAO"
-                    android:id="@+id/kakao"/>
+                <!--<com.kakao.usermgmt.LoginButton
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:id="@+id/kakaoLoginBtn"
+                    />-->
 
-                <Button
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:text="FACEBOOK"
-                    android:id="@+id/faceBook"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:id="@+id/kakao"
+                    android:background="@drawable/kakaob"/>
 
-                <Button
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:text="NAVER"
-                    android:id="@+id/naver"/>
+
+
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/loginSubmitBtn"
+                android:layout_below="@+id/btnGroup"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:id="@+id/btnGroup2">
+
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/facebook_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:visibility="gone"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:id="@+id/facebook"
+                    android:background="@drawable/facebookb"
+                    android:visibility="visible"/>
+
+            </FrameLayout>
+            <!--<FrameLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/loginSubmitBtn"
+                android:layout_below="@+id/btnGroup2"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                android:id="@+id/btnGroup3">
+
+                &lt;!&ndash;<com.facebook.login.widget.LoginButton
+                    android:id="@+id/facebook_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    />&ndash;&gt;
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:id="@+id/naver"
+                    android:background="@drawable/naverb"/>
+
+            </FrameLayout>-->
+
+           <!-- <LinearLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/loginSubmitBtn"
+                android:layout_below="@+id/loginWith"
+                android:layout_marginTop="15dp"
+                android:gravity="center"
+                >
+
 
                 <ImageButton
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/kakao"/>
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/kakao"
+                    android:background="@drawable/kakao"/>
 
                 <ImageButton
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/faceBook"/>
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/facebook"
+                    android:background="@drawable/facebook"/>
 
                 <ImageButton
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
-                    android:id="@+id/naver"/>
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:id="@+id/joinBtn"
+                    android:background="@drawable/naver"/>
             </LinearLayout>-->
 
             <LinearLayout
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/kakaoLoginBtn"
-                android:layout_below="@+id/kakaoLoginBtn"
-                android:layout_marginTop="15dp"
+                android:layout_alignLeft="@+id/loginSubmitBtn"
+                android:layout_below="@+id/btnGroup2"
+                android:layout_marginTop="25dp"
                 android:gravity="center">
 
                 <TextView
@@ -167,7 +222,7 @@
                     android:layout_height="40dp"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/joinBtn_textView"
-                    android:background="#FADA92"
+                    android:background="#426bb3"
                     android:text="회원가입"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold" />
@@ -177,10 +232,5 @@
         </RelativeLayout>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/lv_slidemenu"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="end"
-        android:background="#EDEDED" />
+
 </android.support.v4.widget.DrawerLayout>

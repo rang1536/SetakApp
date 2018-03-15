@@ -65,10 +65,7 @@ public class JoinActivity extends AppCompatActivity {
                 RadioButton rb = (RadioButton) findViewById(checkRadio);
                 String phone = joinPhoneInput.getText().toString();
                 String name = joinNameInput.getText().toString();
-                /*String pw = joinPwInput.getText().toString();
-                String pwCheck = joinPwCheckInput.getText().toString();*/
-                /*String birth = joinBirthInput.getText().toString();*/
-                /*int figure = Integer.parseInt(joinFigureInput.getText().toString());*/
+
                 String genderCheck = rb.getText().toString();
                 String gender = "";
                 if (genderCheck.equals("남")) {

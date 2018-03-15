@@ -15,11 +15,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +34,7 @@ import java.util.concurrent.ExecutionException;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
 public class OrderActivity extends AppCompatActivity implements OrderAdapter.ListBtnClickListener {
-
+    Intent intent;
     String cateItem;
     OrderAdapter orderAdapter;
     TextView orderCountText;
@@ -64,9 +67,9 @@ public class OrderActivity extends AppCompatActivity implements OrderAdapter.Lis
 
         //layout을 가지고 와서 actionbar에 포팅을 시킵니다.
         LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
-        View actionbar = inflater.inflate(R.layout.custom_bar, null);
+        View actionbarView = inflater.inflate(R.layout.custom_bar, null);
 
-        actionBar.setCustomView(actionbar);
+        actionBar.setCustomView(actionbarView);
 
         //UI
         slidingPage01 = (LinearLayout)findViewById(R.id.slidingPage01);
@@ -109,51 +112,57 @@ public class OrderActivity extends AppCompatActivity implements OrderAdapter.Lis
         });
 
         //액션바 양쪽 공백 없애기
-        Toolbar parent = (Toolbar)actionbar.getParent();
+        Toolbar parent = (Toolbar)actionbarView.getParent();
         parent.setContentInsetsAbsolute(0,0);
 
         //회원정보세팅. 쉐어드프리퍼런스에서 아이디 불러와서 DB에서 조회 혹은 로그인시 아예 저장.
         TextView nameText = (TextView) findViewById(R.id.slide_loginNameText);
+        ImageView userImgView = (ImageView) findViewById(R.id.userImg);
 
         SharedPreferences login = getSharedPreferences("login", Activity.MODE_PRIVATE);
         String loginUserId = login.getString("loginUserId", null);
+        String userImg = login.getString("userImg",null);
 
         nameText.setText(loginUserId);
+        System.out.println("이미지 확인 : "+userImg);
+        if(userImg != null){
+            Picasso.with(getApplicationContext()).load(userImg).resize(300,0).transform(new CircleTransform()).into(userImgView);
+        }
        /* actionBar.hide();*/
 
         //사이드바 메뉴 인텐트 이동
         RelativeLayout myPageBtn = (RelativeLayout) findViewById(R.id.slide_myPageButton);
         RelativeLayout menu1Btn = (RelativeLayout) findViewById(R.id.slide_menu1Button);
         RelativeLayout menu2Btn = (RelativeLayout) findViewById(R.id.slide_menu2Button);
-        RelativeLayout menu3Btn = (RelativeLayout) findViewById(R.id.slide_menu3Button);
 
         myPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
                 //마이페이지로 이동
+                intent = new Intent(OrderActivity.this, MypageActivity.class);
+                startActivity(intent);
             }
         });
 
         menu1Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                //메뉴1로 이동
+                //세탁목록으로 이동
+                intent = new Intent(OrderActivity.this, ListActivity.class);
+                startActivity(intent);
             }
         });
 
         menu2Btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v){
-                //메뉴2로 이동
+                //고객센터로 이동
+                intent = new Intent(OrderActivity.this, CenterActivity.class);
+                startActivity(intent);
             }
         });
 
-        menu3Btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v){
-                //메뉴3로 이동
-            }
-        });
+
 
         ArrayList<OrderItem> list_itemArrayList= new ArrayList<OrderItem>();;
         listView = (ListView)findViewById(R.id.orderListView);

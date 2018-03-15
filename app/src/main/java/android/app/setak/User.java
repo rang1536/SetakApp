@@ -15,6 +15,15 @@ public class User {
     private int orderCount;
     private String regDate;
     private String userGrade;
+    private String sangseAdd;
+
+    public String getSangseAdd() {
+        return sangseAdd;
+    }
+
+    public void setSangseAdd(String sangseAdd) {
+        this.sangseAdd = sangseAdd;
+    }
 
     public int getUserNo() {
         return userNo;
@@ -109,6 +118,7 @@ public class User {
                 ", orderCount=" + orderCount +
                 ", regDate='" + regDate + '\'' +
                 ", userGrade='" + userGrade + '\'' +
+                ", sangseAdd='" + sangseAdd + '\'' +
                 '}';
     }
 }

@@ -1,7 +1,9 @@
 package android.app.setak;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,9 @@ public class IndexActivity extends AppCompatActivity {
 
     /*ImageButton mainmenu1, mainmenu2;*/
     ImageButton mainmenu1, mainmenu2;
+    Intent intent;
+    String userGrade;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,12 +30,19 @@ public class IndexActivity extends AppCompatActivity {
         mainmenu1 = (ImageButton) findViewById(R.id.mainmenu1);
         mainmenu2 = (ImageButton) findViewById(R.id.mainmenu2);
 
+        SharedPreferences login = getSharedPreferences("login", Context.MODE_PRIVATE);
+        userGrade = login.getString("userGrade", null);
+
         //세탁확인
         mainmenu1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(IndexActivity.this, ListActivity.class);
-                intent.putExtra("menuSelected", "checkList");
+                if(userGrade.equals("staff")){
+                    intent = new Intent(IndexActivity.this, android.app.setak.StaffActivity.class);
+                }else if(userGrade.equals("user")){
+                    intent = new Intent(IndexActivity.this, android.app.setak.ListActivity.class);
+                }
+                /*intent.putExtra("menuSelected", "checkList");*/
                 startActivity(intent);
             }
         });
@@ -39,8 +51,8 @@ public class IndexActivity extends AppCompatActivity {
         mainmenu2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(IndexActivity.this, OrderActivity.class);
-                intent.putExtra("menuSelected", "addOrder");
+                intent = new Intent(IndexActivity.this, OrderActivity.class);
+                /*intent.putExtra("menuSelected", "addOrder");*/
                 startActivity(intent);
             }
         });

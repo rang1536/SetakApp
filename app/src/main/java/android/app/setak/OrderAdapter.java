@@ -95,7 +95,7 @@ public class OrderAdapter extends ArrayAdapter implements View.OnClickListener {
         String priceComma = String.format("%,d",Integer.parseInt(listViewItem.getPrice())); //그린피 컴마 찍기
         // 아이템 내 각 위젯에 데이터 반영
         name.setText(listViewItem.getName());
-        price.setText(listViewItem.getPrice());
+        price.setText(priceComma);
 
         orderPlusBtn.setOnClickListener(new View.OnClickListener() {
             @Override

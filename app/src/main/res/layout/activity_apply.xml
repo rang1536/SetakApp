@@ -1,45 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/dl_slidemenu"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="android.app.setak.OrderActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true"
-        android:focusableInTouchMode="true">
+        android:focusableInTouchMode="true"
+        android:layout_margin="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!--<ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1.2"
-                android:scaleType="fitXY"
-                android:src="@drawable/golf_reserve" />
-
-            &lt;!&ndash;상품정보 이미지&ndash;&gt;
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.8"
-                android:src="@drawable/menu_product" />-->
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="세탁물정보"
                 android:textSize="20dp"
-                />
-            <View
+                android:textColor="#363636"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"/>
+
+            <!--<View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.05"
-                android:background="#0000ff"></View>
+                android:background="#363636"></View>-->
 
             <!--골프장명-->
             <LinearLayout
@@ -69,13 +60,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.05"
-                android:background="#0000ff"></View>
+                android:background="#363636"></View>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="회원정보"
-                android:textSize="20dp"/>
+                android:textSize="20dp"
+                android:textColor="#363636"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="5dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -133,10 +127,12 @@
             </LinearLayout>
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
                 android:text="주소검색"
-                android:id="@+id/apply_search_addBtn">
+                android:id="@+id/apply_search_addBtn"
+                android:background="#2478FF"
+                android:textColor="#ffffff">
 
 
             </Button>
@@ -359,6 +355,15 @@
         android:layout_width="200dp"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/woman"
+            android:id="@+id/userImg1"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="70dp"
@@ -378,7 +383,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/slide_loginText1"
+                android:id="@+id/slide_loginText"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="10dp"
@@ -427,7 +432,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/slide_menuIcon1_1"
+                    android:id="@+id/slide_menuIcon1"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentLeft="true"
@@ -468,7 +473,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/slide_menuIcon2_2"
+                    android:id="@+id/slide_menuIcon2"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentLeft="true"
@@ -482,7 +487,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_toRightOf="@+id/slide_menuIcon2"
                     android:background="#FFFFFF"
-                    android:text="문의내역"
+                    android:text="고객센터"
                     android:textSize="17dp"
                     android:textStyle="bold" />
 
@@ -500,8 +505,8 @@
                 android:layout_height="2dp"
                 android:background="#eaac17" />
 
-            <RelativeLayout
-                android:id="@+id/slide_menu3Button1"
+            <!--<RelativeLayout
+                android:id="@+id/slide_menu3Button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -509,7 +514,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/slide_menuIcon3_3"
+                    android:id="@+id/slide_menuIcon3"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentLeft="true"
@@ -534,7 +539,7 @@
                     android:layout_margin="5dp"
                     android:background="#FFFFFF"
                     android:src="@drawable/next_btn" />
-            </RelativeLayout>
+            </RelativeLayout>-->
 
             <View
                 android:layout_width="match_parent"
@@ -542,6 +547,7 @@
                 android:background="#eaac17" />
 
             <RelativeLayout
+                android:id="@+id/slide_adminButton1"
                 android:layout_width="match_parent"
                 android:layout_gravity="bottom"
                 android:layout_alignParentBottom="true"
@@ -560,4 +566,4 @@
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
-</android.support.v4.widget.DrawerLayout>
+</FrameLayout>
